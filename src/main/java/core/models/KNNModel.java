@@ -7,6 +7,8 @@ import java.util.*;
 
 public class KNNModel implements Model {
 
+    private List<Double> minValues;
+    private List<Double> maxValues;
     private int neighborsAmount;
     private int classesAmount;
     private List<Object> plane;
@@ -15,6 +17,7 @@ public class KNNModel implements Model {
         this.classesAmount = classesAmount;
         this.neighborsAmount = neighborsAmount;
         this.plane = plane;
+
     }
 
     public int guess(Object object) {
@@ -39,11 +42,19 @@ public class KNNModel implements Model {
             throw new CompareException("Objects have different amount of coordinates");
         else {
             for (int i=0; i<o1.getCoords().size(); i++) {
-                double temp = Math.pow(o2.getCoords().get(i)-o1.getCoords().get(i), 2);
+                double temp = Math.pow(
+                        normalize(o2.getCoords().get(i), i)
+                                -
+                                normalize(o1.getCoords().get(i), i),
+                        2);
                 result += temp;
             }
             return Math.sqrt(result);
         }
+    }
+
+    private double normalize(double value, int index) {
+        return (value-minValues.get(index)) / (maxValues.get(index)-minValues.get(index));
     }
 
     private List<Object> findClosest(Object newObject) {
@@ -69,5 +80,13 @@ public class KNNModel implements Model {
             }
         }
         return result;
+    }
+
+    public void setMinValues(List<Double> minValues) {
+        this.minValues = minValues;
+    }
+
+    public void setMaxValues(List<Double> maxValues) {
+        this.maxValues = maxValues;
     }
 }
