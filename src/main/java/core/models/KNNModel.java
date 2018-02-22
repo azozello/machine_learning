@@ -19,15 +19,18 @@ public class KNNModel implements Model {
 
     public int guess(Object object) {
         List<Integer> classes = new ArrayList<>();
-
         for (int i=0; i<classesAmount; i++)
             classes.add(0);
 
         for (Object o : findClosest(object))
             classes.set(o.getObjectsClass(), (classes.get(o.getObjectsClass())+1));
-
-        Collections.sort(classes);
-        return classes.get(0);
+        int index = 0;
+        for (int i=0; i<classesAmount-1; i++) {
+            if (classes.get(i+1) > classes.get(i)) {
+                index = i+1;
+            }
+        }
+        return index;
     }
 
     private double getDistance(Object o1, Object o2) throws CompareException {
@@ -37,15 +40,12 @@ public class KNNModel implements Model {
         else {
             for (int i=0; i<o1.getCoords().size(); i++) {
                 double temp = Math.pow(o2.getCoords().get(i)-o1.getCoords().get(i), 2);
-                result += Math.sqrt(temp);
+                result += temp;
             }
-            return result;
+            return Math.sqrt(result);
         }
     }
 
-    /**
-     * TODO: TEST IT!!!!!!
-     */
     private List<Object> findClosest(Object newObject) {
         HashMap<Object, Double> unsortedPlane = new HashMap<>();
         List<Object> result = new ArrayList<>(neighborsAmount);
@@ -59,11 +59,15 @@ public class KNNModel implements Model {
                 .sorted(Map.Entry.comparingByValue())
                 .forEachOrdered(x -> sortedPlane.put(x.getKey(), x.getValue()));
 
-        for (int i=0; i<neighborsAmount; i++) {
-            Map.Entry<Object, Double> entry = sortedPlane.entrySet().iterator().next();
-            result.add(entry.getKey());
+        int index = 0;
+        for (Map.Entry<Object, Double> entry : sortedPlane.entrySet()) {
+            if (index == neighborsAmount)
+                break;
+            else {
+                result.add(entry.getKey());
+                index++;
+            }
         }
-
         return result;
     }
 }

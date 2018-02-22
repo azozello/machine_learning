@@ -27,12 +27,13 @@ public class Data {
             while (br.ready()) {
                 lines.add(br.readLine());
             }
-            Object object = new Object();
             for (String line : lines) {
+                Object object = new Object();
                 List<Double> coords = new ArrayList<>();
                 int objectClass;
 
                 String coordsString = line.split(":")[0];
+                coordsString = coordsString.replaceAll("\t"," ");
                 for (String coordString : coordsString.split(" ")) {
                     coords.add(Double.valueOf(coordString.trim()));
                 }

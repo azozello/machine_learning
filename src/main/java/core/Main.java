@@ -1,23 +1,42 @@
 package core;
 
 import core.algs.KNNClassification;
+import core.entities.Data;
 import core.entities.Object;
 import core.models.Model;
 
-import java.util.Arrays;
-
-
-/**
- * TODO: Not working
- */
 public class Main {
     public static void main(String[] args) {
-        Model KNNmodel = KNNClassification.getModel(3, 3,
-                "src/main/resources/train.txt");
-        Object testObject = new Object();
-        Double coords[] = {6.0,3.0};
-        testObject.setCoords(Arrays.asList(coords));
+        Data trainData = new Data();
+        trainData.loadData("src/main/resources/train.txt");
 
-        System.out.println(KNNmodel.guess(testObject));
+        Data testData = new Data();
+        testData.loadData("src/main/resources/test.txt");
+
+        Model KNNmodel = KNNClassification.getModel(3, 3, trainData);
+
+        double all = 0;
+        double passed = 0;
+        double percentage = 0;
+
+        for (Object o : trainData.getObjects()) {
+            all += 1;
+            if (o.getObjectsClass() == KNNmodel.guess(o))
+                passed +=1;
+        }
+
+        percentage = (passed/all) * 100;
+        System.out.println("Результат на учебном наборе: "+percentage+"%");
+        all = 0;
+        passed = 0;
+
+        for (Object o : testData.getObjects()) {
+            all += 1;
+            if (o.getObjectsClass() == KNNmodel.guess(o))
+                passed +=1;
+        }
+        percentage = (passed/all) * 100;
+        System.out.println("Результат на тестовом наборе: "+percentage+"%");
+
     }
 }
