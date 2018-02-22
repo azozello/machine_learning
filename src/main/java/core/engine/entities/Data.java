@@ -1,6 +1,6 @@
-package core.entities;
+package core.engine.entities;
 
-import core.exceptions.TrainingFileException;
+import core.engine.exceptions.TrainingFileException;
 
 import java.io.BufferedReader;
 import java.io.File;

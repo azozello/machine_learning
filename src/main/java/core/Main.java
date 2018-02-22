@@ -1,9 +1,9 @@
 package core;
 
-import core.algs.KNNClassification;
-import core.entities.Data;
-import core.entities.Object;
-import core.models.Model;
+import core.engine.algs.KNNClassification;
+import core.engine.entities.Data;
+import core.engine.entities.Object;
+import core.engine.models.Model;
 
 import java.util.Date;
 

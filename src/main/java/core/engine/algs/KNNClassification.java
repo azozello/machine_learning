@@ -1,9 +1,9 @@
-package core.algs;
+package core.engine.algs;
 
-import core.entities.Data;
-import core.entities.Object;
-import core.models.KNNModel;
-import core.models.Model;
+import core.engine.entities.Data;
+import core.engine.entities.Object;
+import core.engine.models.KNNModel;
+import core.engine.models.Model;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package core.exceptions;
+package core.engine.exceptions;
 
 public class TrainingFileException extends RuntimeException {
     public TrainingFileException(String s) {

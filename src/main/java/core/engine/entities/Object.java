@@ -1,4 +1,4 @@
-package core.entities;
+package core.engine.entities;
 
 import java.util.List;
 

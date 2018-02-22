@@ -1,8 +1,7 @@
-package core.models;
+package core.engine.models;
 
-import core.entities.Data;
-import core.entities.Object;
-import org.junit.Assert;
+import core.engine.entities.Data;
+import core.engine.entities.Object;
 import org.junit.Test;
 
 import java.util.Arrays;

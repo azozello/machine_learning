@@ -1,7 +1,7 @@
-package core.models;
+package core.engine.models;
 
-import core.entities.Object;
-import core.exceptions.CompareException;
+import core.engine.entities.Object;
+import core.engine.exceptions.CompareException;
 
 import java.util.*;
 
